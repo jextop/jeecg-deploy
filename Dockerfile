@@ -1,11 +1,13 @@
-FROM python:3.6
+FROM nginx:latest
 
 LABEL maintainer="Jext Community, https://github.com/jextop"
 
-# copy code, compile and package
+# get code, compile and package
 WORKDIR /
 
-RUN git --version; \
+RUN apt update; \
+	apt -y install git; \
+	git --version; \
 	git clone https://gitee.com/jiekebu/jeewx-app-cms.git code; \
 	cd code; \
 	ls -al
