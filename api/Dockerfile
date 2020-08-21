@@ -18,7 +18,7 @@ RUN cd /; \
   	\
 	sh mvnw package -Dmaven.test.skip=true; \
     \
-    mv ./deploy/ /deploy; \
+    mv ../deploy/ /deploy; \
     mv ./jeecg-boot-module-system/target/jeecg-boot-module-system-2.2.1.jar /deploy; \
     \
     cd /; \
