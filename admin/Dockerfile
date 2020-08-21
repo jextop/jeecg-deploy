@@ -3,9 +3,10 @@ FROM registry.cn-shanghai.aliyuncs.com/jext/starter_admin_base:latest
 LABEL maintainer="Jext Community, https://github.com/jextop"
 
 # get code, compile and package
-WORKDIR /
+WORKDIR /code
 
-RUN git clone https://gitee.com/jiekebu/jeecg-boot.git code_tmp; \
+RUN cd /; \
+    git clone https://gitee.com/jiekebu/jeecg-boot.git code_tmp; \
   	mv /code_tmp/* /code; \
   	cd code; \
   	ls -al; \
@@ -21,12 +22,12 @@ RUN git clone https://gitee.com/jiekebu/jeecg-boot.git code_tmp; \
     mkdir -p /var/www/html; \
     mv ./dist/* /var/www/html; \
     \
-    cd ..; \
-    cd ..; \
+    cd /; \
     rm -rf /code; \
     ls -al
 
 # config nginx
+VOLUME /tmp
 ENV LANG en_US.UTF-8
 RUN echo "server {  \
                       listen       80; \

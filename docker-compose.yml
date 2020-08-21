@@ -1,0 +1,37 @@
+version: '2'
+services:
+  jeecg-boot-mysql:
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+    restart: always
+    container_name: jeecg-boot-mysql
+    image: registry.cn-shanghai.aliyuncs.com/jiekebu/jeecg_boot_db:latest
+    command:
+      --character-set-server=utf8mb4
+      --collation-server=utf8mb4_general_ci
+      --explicit_defaults_for_timestamp=true
+      --lower_case_table_names=1
+      --max_allowed_packet=128M
+    ports:
+      - 3306:3306
+
+  jeecg-boot-redis:
+    image: redis:5.0
+    ports:
+      - 6379:6379
+    restart: always
+    container_name: jeecg-boot-redis
+
+  jeecg-boot-system:
+    restart: always
+    container_name: jeecg-boot-system
+    image: jeecg-boot-system
+    ports:
+      - 8080:8080
+
+  jeecg-boot-admin:
+    restart: always
+    container_name: jeecg-boot-admin
+    image: registry.cn-shanghai.aliyuncs.com/jiekebu/jeecg_boot_admin:latest
+    ports:
+      - "80:80"
