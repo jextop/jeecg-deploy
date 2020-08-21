@@ -7,12 +7,9 @@ WORKDIR /code
 
 RUN cd /; \
     git clone https://gitee.com/jiekebu/jeecg-boot.git code_tmp; \
-  	mv /code_tmp/* /code; \
+  	mv /code_tmp/ant-design-vue-jeecg/* /code; \
   	cd code; \
   	ls -al; \
-  	\
-    cd ant-design-vue-jeecg; \
-    ls -al; \
     \
     cnpm install; \
     cnpm run build; \
@@ -24,6 +21,7 @@ RUN cd /; \
     \
     cd /; \
     rm -rf /code; \
+    rm -rf /code_tmp; \
     ls -al
 
 # config nginx

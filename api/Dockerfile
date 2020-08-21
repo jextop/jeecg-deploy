@@ -9,20 +9,18 @@ WORKDIR /code
 # package and copy files
 RUN cd /; \
     git clone https://gitee.com/jiekebu/jeecg-boot.git code_tmp; \
-  	mv /code_tmp/* /code; \
+  	mv /code_tmp/jeecg-boot/* /code; \
   	cd code; \
   	ls -al; \
   	\
-    cd jeecg-boot; \
-    ls -al; \
-  	\
-	sh mvnw package -Dmaven.test.skip=true; \
+	sh mvnw package --settings ./settings.xml -Dmaven.test.skip=true; \
     \
-    mv ../deploy/ /deploy; \
+    mv ./deploy/ /deploy; \
     mv ./jeecg-boot-module-system/target/jeecg-boot-module-system-2.2.1.jar /deploy; \
     \
     cd /; \
     rm -rf /code; \
+    rm -rf /code_tmp; \
     ls -al
 
 WORKDIR /deploy
