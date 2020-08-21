@@ -5,11 +5,14 @@ LABEL maintainer="Jext Community, https://github.com/jextop"
 # get code, compile and package
 WORKDIR /
 
-RUN git clone https://gitee.com/jiekebu/jeewx-app-cms.git code_tmp; \
+RUN git clone https://gitee.com/jiekebu/jeecg-boot.git code_tmp; \
   	mv /code_tmp/* /code; \
   	cd code; \
   	ls -al; \
   	\
+    cd ant-design-vue-jeecg; \
+    ls -al;
+    \
   	cnpm install; \
     cnpm run build; \
     ls ./dist; \
