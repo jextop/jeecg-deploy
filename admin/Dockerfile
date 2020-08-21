@@ -13,7 +13,7 @@ RUN git clone https://gitee.com/jiekebu/jeecg-boot.git code_tmp; \
     cd ant-design-vue-jeecg; \
     ls -al;
     \
-  	cnpm install; \
+    cnpm install; \
     cnpm run build; \
     ls ./dist; \
     \
@@ -21,6 +21,7 @@ RUN git clone https://gitee.com/jiekebu/jeecg-boot.git code_tmp; \
     mkdir -p /var/www/html; \
     mv ./dist/* /var/www/html; \
     \
+    cd ..; \
     cd ..; \
     rm -rf /code; \
     ls -al
