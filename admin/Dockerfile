@@ -11,8 +11,16 @@ RUN git clone https://gitee.com/jiekebu/jeewx-app-cms.git code_tmp; \
   	ls -al; \
   	\
   	cnpm install; \
-    npm run build; \
-    ls ./dist
+    cnpm run build; \
+    ls ./dist; \
+    \
+    mkdir -p /var/www; \
+    mkdir -p /var/www/html; \
+    mv ./dist/* /var/www/html; \
+    \
+    cd ..; \
+    rm -rf /code; \
+    ls -al
 
 # config nginx
 ENV LANG en_US.UTF-8
@@ -34,14 +42,7 @@ RUN echo "server {  \
                       } \
                   } \
                   access_log  /var/log/nginx/access.log ; \
-              } " > /etc/nginx/conf.d/default.conf \
-    &&  mkdir  -p  /var/www \
-    &&  mkdir -p /var/www/html
-
-ADD dist/ /var/www/html/
-
-# delete code
-RUN rm -rf /code
+              } " > /etc/nginx/conf.d/default.conf
 
 WORKDIR /etc/nginx
 
