@@ -11,10 +11,10 @@ RUN git clone https://gitee.com/jiekebu/jeecg-boot.git code_tmp; \
   	ls -al; \
   	\
     cd ant-design-vue-jeecg; \
-    ls -al;
+    ls -al; \
     \
-    npm install; \
-    npm run build; \
+    cnpm install; \
+    cnpm run build; \
     ls ./dist; \
     \
     mkdir -p /var/www; \
