@@ -10,7 +10,7 @@ WORKDIR /code
 RUN cd /; \
     git clone https://gitee.com/jiekebu/jeecg-boot.git code_tmp; \
     cd code_tmp; \
-    git checkout flyway; \
+    git checkout cv; \
     mv ./jeecg-boot/* /code; \
     \
     cd /code; \

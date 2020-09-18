@@ -33,7 +33,7 @@ services:
   jeecg-boot-system:
     restart: always
     container_name: jeecg-boot-system
-    image: registry.cn-shanghai.aliyuncs.com/jiekebu/jeecg_boot_api:latest
+    image: registry.cn-shanghai.aliyuncs.com/jiekebu/jeecg_boot_api:cv
     ports:
       - 8080:8080
     depends_on:
@@ -43,7 +43,7 @@ services:
   jeecg-boot-admin:
     restart: always
     container_name: jeecg-boot-admin
-    image: registry.cn-shanghai.aliyuncs.com/jiekebu/jeecg_boot_admin:latest
+    image: registry.cn-shanghai.aliyuncs.com/jiekebu/jeecg_boot_admin:cv
     ports:
       - "80:80"
     depends_on:
