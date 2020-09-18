@@ -11,7 +11,7 @@ RUN cd /; \
     git checkout flyway; \
     mv ./ant-design-vue-jeecg/* /code; \
     \
-    cd code; \
+    cd /code; \
     cnpm install; \
     cnpm run build; \
     \
