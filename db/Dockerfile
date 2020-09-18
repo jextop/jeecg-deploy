@@ -5,8 +5,10 @@ LABEL maintainer="Jext Community, https://github.com/jextop"
 # get code, copy SQL file
 RUN cd /; \
     git clone https://gitee.com/jiekebu/jeecg-boot.git code; \
+    cd code; \
+    git checkout flyway; \
     \
-  	cd code/jeecg-boot/db; \
+    cd ./jeecg-boot/db; \
     mv ./jeecgboot-mysql-5.7.sql /docker-entrypoint-initdb.d; \
     \
     cd /; \

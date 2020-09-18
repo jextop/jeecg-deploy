@@ -9,10 +9,12 @@ WORKDIR /code
 # package and copy files
 RUN cd /; \
     git clone https://gitee.com/jiekebu/jeecg-boot.git code_tmp; \
-  	mv /code_tmp/jeecg-boot/* /code; \
-  	\
-  	cd code; \
-	sh mvnw package --settings ./settings.xml -Dmaven.test.skip=true; \
+    cd code_tmp; \
+    git checkout flyway; \
+    mv ./jeecg-boot/* /code; \
+    \
+    cd code; \
+    sh mvnw package --settings ./settings.xml -Dmaven.test.skip=true; \
     mv ./deploy/ /deploy; \
     mv ./jeecg-boot-module-system/target/jeecg-boot-module-system-2.2.1.jar /deploy; \
     \
@@ -24,6 +26,6 @@ WORKDIR /deploy
 
 RUN ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
 
-CMD sleep 60; java -Djava.security.egd=file:/dev/./urandom -jar jeecg-boot-module-system-2.2.1.jar
+CMD java -Djava.security.egd=file:/dev/./urandom -jar jeecg-boot-module-system-2.2.1.jar
 
 EXPOSE 8080

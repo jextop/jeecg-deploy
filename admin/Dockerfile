@@ -7,9 +7,11 @@ WORKDIR /code
 
 RUN cd /; \
     git clone https://gitee.com/jiekebu/jeecg-boot.git code_tmp; \
-  	mv /code_tmp/ant-design-vue-jeecg/* /code; \
+    cd code_tmp; \
+    git checkout flyway; \
+    mv ./ant-design-vue-jeecg/* /code; \
     \
-  	cd code; \
+    cd code; \
     cnpm install; \
     cnpm run build; \
     \
