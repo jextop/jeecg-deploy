@@ -92,6 +92,13 @@ spring:
     static-locations: classpath:/static/,classpath:/public/
   autoconfigure:
     exclude: com.alibaba.druid.spring.boot.autoconfigure.DruidDataSourceAutoConfigure
+
+  flyway:
+    locations: ["classpath:db/migration"]
+    table: flyway_schema_history
+    validate-on-migrate: true
+    placeholder-replacement: false
+
   datasource:
     druid:
       stat-view-servlet:
@@ -122,7 +129,7 @@ spring:
         poolPreparedStatements: true
         maxPoolPreparedStatementPerConnectionSize: 20
         # 配置监控统计拦截的filters，去掉后监控界面sql无法统计，'wall'用于防火墙
-        filters: stat,wall,slf4j
+        filters: stat,slf4j
         # 通过connectProperties属性来打开mergeSql功能；慢SQL记录
         connectionProperties: druid.stat.mergeSql\=true;druid.stat.slowSqlMillis\=5000
       datasource:
