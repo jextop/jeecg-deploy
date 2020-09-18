@@ -15,6 +15,14 @@ services:
     ports:
       - 3306:3306
 
+  dba:
+    image: adminer:latest
+    restart: always
+    ports:
+      - 8081:8080
+    depends_on:
+      - jeecg-boot-mysql
+
   jeecg-boot-redis:
     image: redis:5.0
     ports:
@@ -28,6 +36,9 @@ services:
     image: registry.cn-shanghai.aliyuncs.com/jiekebu/jeecg_boot_api:latest
     ports:
       - 8080:8080
+    depends_on:
+      - jeecg-boot-redis
+      - jeecg-boot-mysql
 
   jeecg-boot-admin:
     restart: always
@@ -35,3 +46,5 @@ services:
     image: registry.cn-shanghai.aliyuncs.com/jiekebu/jeecg_boot_admin:latest
     ports:
       - "80:80"
+    depends_on:
+      - jeecg-boot-system
