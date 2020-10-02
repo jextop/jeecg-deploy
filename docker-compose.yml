@@ -12,6 +12,8 @@ services:
       --explicit_defaults_for_timestamp=true
       --lower_case_table_names=1
       --max_allowed_packet=128M
+    # volumes:
+    #  - ./data/mysql:/var/lib/mysql
     ports:
       - 3306:3306
 
