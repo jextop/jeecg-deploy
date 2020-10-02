@@ -12,8 +12,8 @@ services:
       --explicit_defaults_for_timestamp=true
       --lower_case_table_names=1
       --max_allowed_packet=128M
-    # volumes:
-    #  - ./data/mysql:/var/lib/mysql
+    volumes:
+      - ./data/mysql:/var/lib/mysql
     ports:
       - 3306:3306
 
@@ -27,6 +27,8 @@ services:
 
   jeecg-boot-redis:
     image: redis:5.0
+    volumes:
+      - ./data/redis:/data
     ports:
       - 6379:6379
     restart: always
