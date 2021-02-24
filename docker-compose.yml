@@ -1,24 +1,25 @@
 version: '2'
 services:
   jeecg-boot-mysql:
-    environment:
-      MYSQL_ROOT_PASSWORD: root
-    restart: always
+    image: registry.cn-shanghai.aliyuncs.com/hellodock/mysql:8.0
     container_name: jeecg-boot-mysql
-    image: registry.cn-shanghai.aliyuncs.com/jiekebu/jeecg_boot_db:latest
+    restart: always
     command:
       --character-set-server=utf8mb4
       --collation-server=utf8mb4_general_ci
       --explicit_defaults_for_timestamp=true
       --lower_case_table_names=1
       --max_allowed_packet=128M
-    volumes:
-      - ./data/mysql:/var/lib/mysql
+    environment:
+      MYSQL_DATABASE: jeecg-boot
+      MYSQL_ROOT_PASSWORD: root
+    # volumes:
+    #   - ./data/mysql:/var/lib/mysql
     ports:
       - 3306:3306
 
   dba:
-    image: adminer:latest
+    image: registry.cn-shanghai.aliyuncs.com/hellodock/adminer:latest
     restart: always
     ports:
       - 8081:8080
@@ -26,29 +27,43 @@ services:
       - jeecg-boot-mysql
 
   jeecg-boot-redis:
-    image: redis:5.0
-    volumes:
-      - ./data/redis:/data
+    image: registry.cn-shanghai.aliyuncs.com/hellodock/redis:5.0
+    container_name: jeecg-boot-redis
+    restart: always
+    # volumes:
+    #   - ./data/redis:/data
     ports:
       - 6379:6379
+
+  mq:
+    hostname: mq
+    image: registry.cn-shanghai.aliyuncs.com/hellodock/activemq:latest
     restart: always
-    container_name: jeecg-boot-redis
+    # volumes:
+    #   - ./data/activemq:/data/activemq
+    ports:
+      - 61616:61616
+      - 61613:61613
+      - 8161:8161
 
   jeecg-boot-system:
-    restart: always
+    image: registry.cn-shanghai.aliyuncs.com/jiekebu/api:latest
     container_name: jeecg-boot-system
-    image: registry.cn-shanghai.aliyuncs.com/jiekebu/jeecg_boot_api:latest
+    restart: always
+    # volumes:
+    #   - ./data/upFiles:/deploy/upFiles
     ports:
       - 8080:8080
     depends_on:
       - jeecg-boot-redis
       - jeecg-boot-mysql
+      - mq
 
-  jeecg-boot-admin:
-    restart: always
+  admin:
+    image: registry.cn-shanghai.aliyuncs.com/jiekebu/admin:latest
     container_name: jeecg-boot-admin
-    image: registry.cn-shanghai.aliyuncs.com/jiekebu/jeecg_boot_admin:latest
+    restart: always
     ports:
-      - "80:80"
+      - "8010:80"
     depends_on:
       - jeecg-boot-system
